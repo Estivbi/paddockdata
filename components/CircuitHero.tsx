@@ -19,6 +19,8 @@ export function CircuitHero({ circuit }: { circuit: Circuit }) {
       label: "Récord de vuelta",
       value: circuit.lap_record,
     },
+    // filter(Boolean) no estrecha el tipo por sí solo (sigue viendo `false`
+    // como posible), de ahí el cast: ya sabemos que solo quedan objetos.
   ].filter(Boolean) as { icon: typeof Gauge; label: string; value: string }[];
 
   return (

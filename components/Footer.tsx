@@ -8,9 +8,12 @@ export function Footer() {
           parte de la organización oficial.
         </p>
         <p className="mt-2">
-          Como afiliado de Amazon, PaddockData recibe una comisión por las
-          compras que cumplan los requisitos realizadas a través de los
-          enlaces de esta web.
+          PaddockData participa en el programa de afiliados de Amazon y en
+          otros programas de afiliación (como servicios VPN): puede recibir
+          una comisión por las compras o contrataciones que cumplan los
+          requisitos realizadas a través de los enlaces de esta web. Los
+          canales oficiales de retransmisión se muestran sin ningún tipo de
+          comisión.
         </p>
         <p className="mt-4 text-xs">
           © {new Date().getFullYear()} PaddockData

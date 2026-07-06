@@ -1,3 +1,7 @@
+// Formateamos en UTC a propósito: events.day es una columna DATE (sin hora) y
+// llega como "2026-07-17", que new Date() interpreta como medianoche UTC. Si
+// formateáramos en la zona horaria del servidor, un servidor en América vería
+// el día anterior.
 const DATE_FORMATTER = new Intl.DateTimeFormat("es-ES", {
   day: "numeric",
   month: "long",

@@ -2,6 +2,8 @@ import { CalendarClock, CircleAlert } from "lucide-react";
 import type { CircuitEvent } from "@/lib/types";
 import { eventTypeLabel, formatRaceDate, formatWeekday } from "@/lib/format";
 
+// Solo carrera y sprint llevan el resaltado en rojo: son las dos sesiones que
+// reparten puntos de campeonato, el resto es preparación.
 const RACE_WEEKEND_TYPES = new Set(["race", "sprint"]);
 
 export function WeekendAgenda({ events }: { events: CircuitEvent[] }) {

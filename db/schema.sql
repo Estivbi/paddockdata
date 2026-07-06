@@ -46,15 +46,19 @@ CREATE TABLE IF NOT EXISTS events (
 CREATE INDEX IF NOT EXISTS idx_events_circuit_id ON events (circuit_id);
 CREATE INDEX IF NOT EXISTS idx_events_day ON events (circuit_id, day);
 
+-- No todo lo que vive aquí es "de Amazon": vpn y oficial enlazan a webs propias
+-- de esos servicios (NordVPN, F1TV...), por eso la columna se llama url y no
+-- amazon_url. category es TEXT + CHECK en vez de un ENUM de Postgres porque
+-- añadir un valor nuevo es un ALTER TABLE de una línea, no una migración de tipo.
 CREATE TABLE IF NOT EXISTS affiliates (
   id            SERIAL PRIMARY KEY,
-  circuit_id    INTEGER REFERENCES circuits (id) ON DELETE CASCADE, -- NULL = afiliado global (p.ej. VPN)
+  circuit_id    INTEGER REFERENCES circuits (id) ON DELETE CASCADE, -- NULL = afiliado global (vpn, oficial)
   title         TEXT NOT NULL,
   description   TEXT,
-  amazon_url    TEXT NOT NULL,
+  url           TEXT NOT NULL,
   image_url     TEXT,
   category      TEXT NOT NULL
-                  CHECK (category IN ('ropa', 'audio', 'accesorios', 'vpn', 'camping', 'electronica', 'otro')),
+                  CHECK (category IN ('ropa', 'audio', 'accesorios', 'vpn', 'oficial', 'camping', 'electronica', 'otro')),
   sort_order    SMALLINT NOT NULL DEFAULT 0,
   created_at    TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );

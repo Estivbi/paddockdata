@@ -41,7 +41,7 @@ export function AffiliateSection({
           return (
             <a
               key={affiliate.id}
-              href={withAmazonTag(affiliate.amazon_url)}
+              href={withAmazonTag(affiliate.url)}
               target="_blank"
               rel="sponsored noopener noreferrer"
               className="group flex flex-col rounded-xl border border-border bg-bg-card p-5 transition hover:border-red/60"

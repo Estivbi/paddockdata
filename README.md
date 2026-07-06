@@ -59,8 +59,8 @@ components/
   CircuitHero.tsx         Cabecera de la página de circuito
   WeekendAgenda.tsx       Agenda de sesiones del fin de semana
   InfoSection.tsx         Bloque reutilizable (cómo llegar / info local)
-  AffiliateSection.tsx    Grid de afiliados contextuales por circuito
-  VpnBanner.tsx           Banner de afiliados VPN (global)
+  AffiliateSection.tsx    Grid de afiliados de Amazon contextuales por circuito
+  WatchOptions.tsx        Canales oficiales + VPN para ver la carrera (global)
   DatabaseSetupNotice.tsx Aviso cuando falta configurar Neon
 lib/
   db.ts, queries.ts       Cliente Neon y acceso a datos
@@ -91,6 +91,10 @@ vive hoy en MadRing y se migrará más adelante.
 **Importante**: `db/seed.sql` guarda los enlaces de Amazon sin etiqueta de
 afiliado. El Amazon Associates ID real se añade en tiempo de renderizado
 desde la variable de entorno `AMAZON_ASSOCIATES_TAG` (ver `lib/affiliate.ts`),
-así nunca queda expuesto en el repositorio. Los afiliados de VPN (NordVPN,
-ExpressVPN) son globales (`circuit_id = NULL`) y aparecen en todas las
-páginas de circuito vía `VpnBanner`.
+así nunca queda expuesto en el repositorio.
+
+Los afiliados de `circuit_id = NULL` son globales y aparecen en todas las
+páginas de circuito vía `WatchOptions`: los de categoría `oficial` (F1 TV,
+DAZN F1) se muestran primero y sin ningún enlace de afiliado; los de
+categoría `vpn` (NordVPN, ExpressVPN) se ofrecen después, como alternativa
+para quien no tenga cobertura del canal oficial en su país.

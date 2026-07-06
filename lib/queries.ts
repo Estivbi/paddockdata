@@ -1,5 +1,5 @@
 import { sql } from "./db";
-import type { Affiliate, Circuit, CircuitEvent } from "./types";
+import type { Affiliate, AffiliateCategory, Circuit, CircuitEvent } from "./types";
 
 export async function getUpcomingCircuits(): Promise<Circuit[]> {
   const rows = await sql()`
@@ -47,8 +47,10 @@ export async function getAffiliatesByCircuitId(
   return rows as Affiliate[];
 }
 
+// category tipado (no string suelto) para que un typo como "official" en vez
+// de "oficial" falle en compilación y no como un array vacío en producción.
 export async function getGlobalAffiliates(
-  category?: string
+  category?: AffiliateCategory
 ): Promise<Affiliate[]> {
   const rows = category
     ? await sql()`

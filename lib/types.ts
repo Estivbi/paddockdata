@@ -64,6 +64,7 @@ export type AffiliateCategory =
   | "audio"
   | "accesorios"
   | "vpn"
+  | "oficial"
   | "camping"
   | "electronica"
   | "otro";
@@ -73,7 +74,8 @@ export type Affiliate = {
   circuit_id: number | null;
   title: string;
   description: string | null;
-  amazon_url: string;
+  // No siempre es Amazon: vpn/oficial apuntan a la web propia del servicio.
+  url: string;
   image_url: string | null;
   category: AffiliateCategory;
   sort_order: number;

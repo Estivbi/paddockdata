@@ -2,6 +2,8 @@ import { GPCard } from "@/components/GPCard";
 import { DatabaseSetupNotice } from "@/components/DatabaseSetupNotice";
 import { getUpcomingCircuits } from "@/lib/queries";
 
+// Ver la nota en app/[circuit]/page.tsx: fuerza el fetch a request time para
+// que el build no dependa de tener DATABASE_URL configurada.
 export const dynamic = "force-dynamic";
 
 export default async function Home() {

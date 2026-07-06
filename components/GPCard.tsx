@@ -11,18 +11,17 @@ export function GPCard({
   isNext: boolean;
 }) {
   const countdown = countdownLabel(circuit.race_date);
-  const isUrgent = isNext;
 
   return (
     <Link
       href={`/${circuit.slug}`}
       className={`group relative flex flex-col justify-between overflow-hidden rounded-xl border p-5 transition hover:-translate-y-0.5 hover:border-red/60 ${
-        isUrgent
+        isNext
           ? "border-red/70 bg-gradient-to-br from-red/15 via-bg-card to-bg-card"
           : "border-border bg-bg-card"
       }`}
     >
-      {isUrgent && (
+      {isNext && (
         <span className="absolute right-4 top-4 rounded-full bg-red px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-white">
           Próxima carrera
         </span>
@@ -43,7 +42,7 @@ export function GPCard({
       <div className="mt-4 flex items-center justify-between">
         <span
           className={`text-sm font-semibold ${
-            isUrgent ? "text-red" : "text-text-muted"
+            isNext ? "text-red" : "text-text-muted"
           }`}
         >
           {countdown}

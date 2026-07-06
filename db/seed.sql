@@ -4,10 +4,11 @@
 -- en el formato estándar de fin de semana y están marcados is_confirmed = false
 -- hasta que la FIA publique el horario detallado de cada GP.
 --
--- Las URLs de afiliados son enlaces de búsqueda de Amazon SIN etiqueta: el
--- Amazon Associates ID real se añade en tiempo de renderizado desde la
--- variable de entorno AMAZON_ASSOCIATES_TAG (lib/affiliate.ts), nunca se
--- guarda en la base de datos ni en el repositorio.
+-- Las categorías ropa/audio/accesorios/camping/electronica/otro son productos
+-- de Amazon; sus URLs se guardan SIN etiqueta de afiliado, que se añade en
+-- tiempo de renderizado desde AMAZON_ASSOCIATES_TAG (lib/affiliate.ts) y nunca
+-- se guarda en la base de datos ni en el repositorio. vpn y oficial son enlaces
+-- directos a esos servicios, sin lógica de tag.
 
 -- =========================================================
 -- 1. Spa-Francorchamps — Gran Premio de Bélgica (19 julio 2026) — URGENTE
@@ -50,7 +51,7 @@ UNION ALL
 SELECT id, '2026-07-19'::date, '15:00 CEST', 'Carrera — Gran Premio de Bélgica', 'F1', 'race', TRUE, '44 vueltas o 120 minutos (lo que ocurra antes).' FROM circuits WHERE slug = 'spa-francorchamps';
 
 -- Afiliados contextuales de Spa (clima muy variable → impermeables, capas, protección de electrónica)
-INSERT INTO affiliates (circuit_id, title, description, amazon_url, image_url, category, sort_order)
+INSERT INTO affiliates (circuit_id, title, description, url, image_url, category, sort_order)
 SELECT id, 'Poncho impermeable compacto para circuito', 'El clima de las Ardenas cambia en minutos: un poncho plegable de bolsillo es imprescindible en las gradas de Spa.', 'https://www.amazon.es/s?k=poncho+impermeable+compacto', NULL, 'accesorios', 1 FROM circuits WHERE slug = 'spa-francorchamps'
 UNION ALL
 SELECT id, 'Auriculares intraurales con protección auditiva', 'Los V6 turbo híbridos superan los 130 dB en recta; unos auriculares con filtro de atenuación protegen el oído durante todo el fin de semana.', 'https://www.amazon.es/s?k=auriculares+proteccion+auditiva+circuito', NULL, 'audio', 2 FROM circuits WHERE slug = 'spa-francorchamps'
@@ -98,7 +99,7 @@ SELECT id, '2026-07-25'::date, '16:00 - 17:00 CEST', 'Clasificación', 'F1', 'qu
 UNION ALL
 SELECT id, '2026-07-26'::date, '15:00 CEST', 'Carrera — Gran Premio de Hungría', 'F1', 'race', TRUE, 'Fecha confirmada por el calendario oficial 2026.' FROM circuits WHERE slug = 'budapest';
 
-INSERT INTO affiliates (circuit_id, title, description, amazon_url, image_url, category, sort_order)
+INSERT INTO affiliates (circuit_id, title, description, url, image_url, category, sort_order)
 SELECT id, 'Gorra transpirable con protección UV', 'El Hungaroring pega de lleno el sol de julio en las gradas; una gorra técnica es casi obligatoria.', 'https://www.amazon.es/s?k=gorra+transpirable+proteccion+solar', NULL, 'ropa', 1 FROM circuits WHERE slug = 'budapest'
 UNION ALL
 SELECT id, 'Botella térmica reutilizable', 'Con 30°C y humedad alta, mantener el agua fría todo el día evita golpes de calor en las gradas.', 'https://www.amazon.es/s?k=botella+termica+reutilizable+deporte', NULL, 'accesorios', 2 FROM circuits WHERE slug = 'budapest';
@@ -142,7 +143,7 @@ SELECT id, '2026-08-22'::date, '15:30 - 16:15 CEST', 'Carrera Sprint', 'F1', 'sp
 UNION ALL
 SELECT id, '2026-08-23'::date, '15:00 CEST', 'Carrera — Gran Premio de los Países Bajos', 'F1', 'race', TRUE, 'Fecha confirmada por el calendario oficial 2026. Último Gran Premio de Holanda anunciado en el calendario.' FROM circuits WHERE slug = 'zandvoort';
 
-INSERT INTO affiliates (circuit_id, title, description, amazon_url, image_url, category, sort_order)
+INSERT INTO affiliates (circuit_id, title, description, url, image_url, category, sort_order)
 SELECT id, 'Cortavientos ligero plegable', 'El viento del Mar del Norte se nota en cada peralte; un cortavientos compacto es el mejor amigo en Zandvoort.', 'https://www.amazon.es/s?k=cortavientos+ligero+plegable', NULL, 'ropa', 1 FROM circuits WHERE slug = 'zandvoort'
 UNION ALL
 SELECT id, 'Mochila impermeable pequeña', 'Para llevar cámara, capa extra y snacks entre la estación y el circuito sin depender del coche.', 'https://www.amazon.es/s?k=mochila+impermeable+pequena+eventos', NULL, 'accesorios', 2 FROM circuits WHERE slug = 'zandvoort';
@@ -186,7 +187,7 @@ SELECT id, '2026-09-05'::date, '16:00 - 17:00 CEST', 'Clasificación', 'F1', 'qu
 UNION ALL
 SELECT id, '2026-09-06'::date, '15:00 CEST', 'Carrera — Gran Premio de Italia', 'F1', 'race', TRUE, 'Fecha confirmada por el calendario oficial 2026.' FROM circuits WHERE slug = 'monza';
 
-INSERT INTO affiliates (circuit_id, title, description, amazon_url, image_url, category, sort_order)
+INSERT INTO affiliates (circuit_id, title, description, url, image_url, category, sort_order)
 SELECT id, 'Gafas de sol polarizadas', 'Las rectas de Monza generan mucho reflejo de sol; unas polarizadas ayudan a seguir los coches a 350 km/h.', 'https://www.amazon.es/s?k=gafas+de+sol+polarizadas+deporte', NULL, 'accesorios', 1 FROM circuits WHERE slug = 'monza'
 UNION ALL
 SELECT id, 'Radio para escuchar comunicaciones del circuito', 'En Monza el ambiente sonoro es tremendo; una radio con auriculares te permite seguir la retransmisión oficial en pista.', 'https://www.amazon.es/s?k=radio+auriculares+circuito+carreras', NULL, 'audio', 2 FROM circuits WHERE slug = 'monza';
@@ -539,8 +540,17 @@ UNION ALL
 SELECT id, '2026-12-06'::date, '17:00 +04', 'Carrera — Gran Premio de Abu Dabi', 'F1', 'race', TRUE, 'Fecha confirmada por el calendario oficial 2026. Última cita de la temporada.' FROM circuits WHERE slug = 'abu-dhabi';
 
 -- =========================================================
--- Afiliados globales (no ligados a un circuito): VPN para ver F1 fuera de cobertura
+-- Afiliados globales (no ligados a un circuito)
 -- =========================================================
-INSERT INTO affiliates (circuit_id, title, description, amazon_url, image_url, category, sort_order) VALUES
+
+-- Canales oficiales: la vía legal recomendada, siempre por delante de la VPN.
+-- DAZN tiene los derechos en exclusiva de la F1 en España hasta 2026; F1 TV es
+-- el servicio global de la propia Fórmula 1 (multicámara, onboard, repeticiones).
+INSERT INTO affiliates (circuit_id, title, description, url, image_url, category, sort_order) VALUES
+  (NULL, 'F1 TV', 'El servicio oficial de la Fórmula 1: todas las sesiones en directo, cámara onboard y repeticiones bajo demanda allá donde esté disponible.', 'https://f1tv.formula1.com/', NULL, 'oficial', 1),
+  (NULL, 'DAZN F1', 'Emisora oficial de la Fórmula 1 en España en exclusiva hasta 2026, con todas las sesiones en directo.', 'https://www.dazn.com/es-ES/sports/f1', NULL, 'oficial', 2);
+
+-- VPN: solo para cuando el canal oficial de tu país no cubre la sesión.
+INSERT INTO affiliates (circuit_id, title, description, url, image_url, category, sort_order) VALUES
   (NULL, 'NordVPN', 'Accede a la señal de F1 TV y de tu retransmisora habitual aunque estés fuera de tu país de cobertura.', 'https://nordvpn.com/', NULL, 'vpn', 1),
   (NULL, 'ExpressVPN', 'Alternativa rápida y estable para ver sesiones de Libres, Clasificación y Carrera sin restricciones geográficas.', 'https://www.expressvpn.com/', NULL, 'vpn', 2);

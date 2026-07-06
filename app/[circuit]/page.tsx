@@ -5,7 +5,7 @@ import { CircuitHero } from "@/components/CircuitHero";
 import { WeekendAgenda } from "@/components/WeekendAgenda";
 import { InfoSection } from "@/components/InfoSection";
 import { AffiliateSection } from "@/components/AffiliateSection";
-import { VpnBanner } from "@/components/VpnBanner";
+import { WatchOptions } from "@/components/WatchOptions";
 import { DatabaseSetupNotice } from "@/components/DatabaseSetupNotice";
 import {
   getAffiliatesByCircuitId,
@@ -14,6 +14,9 @@ import {
   getGlobalAffiliates,
 } from "@/lib/queries";
 
+// Sin esto, `next build` intenta pre-renderizar la ruta en build time y falla
+// porque no hay DATABASE_URL disponible ahí. Con force-dynamic la consulta se
+// hace en cada request, cuando el entorno (Vercel) ya tiene la variable.
 export const dynamic = "force-dynamic";
 
 type PageProps = {
@@ -44,18 +47,21 @@ export default async function CircuitPage({ params }: PageProps) {
     const circuit = await getCircuitBySlug(slug);
     if (!circuit) notFound();
 
-    const [events, affiliates, vpnAffiliates] = await Promise.all([
-      getEventsByCircuitId(circuit.id),
-      getAffiliatesByCircuitId(circuit.id),
-      getGlobalAffiliates("vpn"),
-    ]);
+    const [events, affiliates, officialAffiliates, vpnAffiliates] =
+      await Promise.all([
+        getEventsByCircuitId(circuit.id),
+        getAffiliatesByCircuitId(circuit.id),
+        getGlobalAffiliates("oficial"),
+        getGlobalAffiliates("vpn"),
+      ]);
 
-    data = { circuit, events, affiliates, vpnAffiliates };
+    data = { circuit, events, affiliates, officialAffiliates, vpnAffiliates };
   } catch (error) {
     return <DatabaseSetupNotice error={error} />;
   }
 
-  const { circuit, events, affiliates, vpnAffiliates } = data;
+  const { circuit, events, affiliates, officialAffiliates, vpnAffiliates } =
+    data;
 
   return (
     <>
@@ -81,7 +87,7 @@ export default async function CircuitPage({ params }: PageProps) {
         title={`Recomendado para ${circuit.city}`}
         affiliates={affiliates}
       />
-      <VpnBanner affiliates={vpnAffiliates} />
+      <WatchOptions official={officialAffiliates} vpn={vpnAffiliates} />
     </>
   );
 }
