@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+:root {
+  --color-bg: #0e0e10;
+  --color-bg-elevated: #17171a;
+  --color-bg-card: #1c1c20;
+  --color-border: #2a2a2f;
+  --color-red: #e8001d;
+  --color-red-dim: #a8001a;
+  --color-text: #f4f4f5;
+  --color-text-muted: #a1a1aa;
+}
+
+@theme inline {
+  --color-bg: var(--color-bg);
+  --color-bg-elevated: var(--color-bg-elevated);
+  --color-bg-card: var(--color-bg-card);
+  --color-border: var(--color-border);
+  --color-red: var(--color-red);
+  --color-red-dim: var(--color-red-dim);
+  --color-text: var(--color-text);
+  --color-text-muted: var(--color-text-muted);
+  --font-heading: var(--font-barlow-condensed);
+  --font-sans: var(--font-inter);
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+.font-heading {
+  font-family: var(--font-heading), var(--font-sans), system-ui, sans-serif;
+  letter-spacing: 0.01em;
+}
+
+::selection {
+  background: var(--color-red);
+  color: #fff;
+}
