@@ -36,10 +36,11 @@ export function CircuitHero({ circuit }: { circuit: Circuit }) {
 
         <div className="mt-4 flex flex-wrap items-center gap-3">
           <span className="rounded-full bg-red px-3 py-1 text-sm font-semibold text-white">
-            {countdownLabel(circuit.race_date)}
+            {countdownLabel(circuit.race_date, circuit.timezone)}
           </span>
           <span className="text-sm text-text-muted">
-            {formatWeekday(circuit.race_date)} {formatRaceDate(circuit.race_date)}
+            {formatWeekday(circuit.race_date, circuit.timezone)}{" "}
+            {formatRaceDate(circuit.race_date, circuit.timezone)}
           </span>
           {circuit.is_sprint && (
             <span className="rounded-full border border-border px-3 py-1 text-sm text-text-muted">

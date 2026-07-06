@@ -442,7 +442,7 @@ INSERT INTO circuits (
   '2026-11-21T20:00:00-08:00',
   '2026-11-20T20:00:00-08:00',
   '2026-11-19T20:30:00-08:00',
-  '2026-11-19T23:59:00-08:00',
+  '2026-11-19T22:00:00-08:00',
   '2026-11-20T20:30:00-08:00',
   FALSE,
   '{"lat": 36.1147, "lng": -115.1728}',
@@ -454,6 +454,8 @@ INSERT INTO circuits (
 
 INSERT INTO events (circuit_id, day, time_label, name, category, type, is_confirmed, details)
 SELECT id, '2026-11-19'::date, '20:30 - 21:30 PST', 'Entrenamientos Libres 1', 'F1', 'fp1', FALSE, 'Horario provisional, pendiente de confirmación oficial de la FIA.' FROM circuits WHERE slug = 'las-vegas'
+UNION ALL
+SELECT id, '2026-11-19'::date, '22:00 - 23:00 PST', 'Entrenamientos Libres 2', 'F1', 'fp2', FALSE, 'Horario provisional, pendiente de confirmación oficial de la FIA.' FROM circuits WHERE slug = 'las-vegas'
 UNION ALL
 SELECT id, '2026-11-20'::date, '20:30 - 21:30 PST', 'Entrenamientos Libres 3', 'F1', 'fp3', FALSE, 'Horario provisional, pendiente de confirmación oficial de la FIA.' FROM circuits WHERE slug = 'las-vegas'
 UNION ALL

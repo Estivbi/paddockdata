@@ -10,7 +10,7 @@ export function GPCard({
   circuit: Circuit;
   isNext: boolean;
 }) {
-  const countdown = countdownLabel(circuit.race_date);
+  const countdown = countdownLabel(circuit.race_date, circuit.timezone);
 
   return (
     <Link
@@ -28,7 +28,8 @@ export function GPCard({
       )}
       <div>
         <p className="text-xs font-medium uppercase tracking-wide text-text-muted">
-          {formatWeekday(circuit.race_date)} · {formatRaceDate(circuit.race_date)}
+          {formatWeekday(circuit.race_date, circuit.timezone)} ·{" "}
+          {formatRaceDate(circuit.race_date, circuit.timezone)}
         </p>
         <h3 className="font-heading mt-1 text-2xl font-semibold leading-tight text-text">
           {circuit.name}
