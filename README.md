@@ -9,6 +9,8 @@ del fin de semana, cómo llegar, información local y afiliados contextuales.
 - **Next.js 15** (App Router)
 - **Neon** (PostgreSQL serverless) vía `@neondatabase/serverless`
 - **Tailwind CSS v4** + **lucide-react**
+- **Jolpica** (sucesor de Ergast) para la clasificación de pilotos y **OpenF1**
+  para timing en directo — ver sección [Datos en vivo](#datos-en-vivo)
 - Despliegue en **Vercel**
 
 ## Puesta en marcha
@@ -61,6 +63,8 @@ components/
   InfoSection.tsx         Bloque reutilizable (cómo llegar / info local)
   AffiliateSection.tsx    Grid de afiliados de Amazon contextuales por circuito
   WatchOptions.tsx        Canales oficiales + VPN para ver la carrera (global)
+  DriverStandings.tsx     Clasificación de pilotos 2026 (Jolpica) — Home
+  LiveSession.tsx         Timing en directo (OpenF1) — solo en fin de semana de GP
   DatabaseSetupNotice.tsx Aviso cuando falta configurar Neon
 lib/
   db.ts, queries.ts       Cliente Neon y acceso a datos
@@ -68,6 +72,7 @@ lib/
   format.ts               Formateo de fechas y countdown en español
   rich-text.tsx           Renderer ligero de texto enriquecido (sin HTML)
   affiliate.ts            Añade el Amazon Associates ID (env var) a los enlaces
+  jolpica.ts              Cliente de la API de Jolpica (clasificación de pilotos)
 db/
   schema.sql              DDL de circuits, events, affiliates
   seed.sql                 Datos de los 13 GPs restantes de 2026
@@ -76,10 +81,10 @@ db/
 ## Datos
 
 Los 13 Grandes Premios que quedan en la temporada 2026 están sembrados en
-`db/seed.sql`, con **Spa-Francorchamps** (19 de julio) desarrollado en
-profundidad como circuito de referencia: agenda de sesiones confirmada,
+`db/seed.sql`, con **Spa-Francorchamps** (19 de julio) y **Budapest** (26 de
+julio) desarrollados en profundidad: agenda de sesiones confirmada,
 información de acceso/transporte, info local y afiliados de Amazon
-contextuales según el clima cambiante de las Ardenas.
+contextuales según el clima de cada circuito.
 
 El resto de circuitos incluyen fecha de carrera confirmada por el calendario
 oficial y una agenda de sesiones estimada (marcada `is_confirmed = false` a
@@ -98,3 +103,26 @@ páginas de circuito vía `WatchOptions`: los de categoría `oficial` (F1 TV,
 DAZN F1) se muestran primero y sin ningún enlace de afiliado; los de
 categoría `vpn` (NordVPN, ExpressVPN) se ofrecen después, como alternativa
 para quien no tenga cobertura del canal oficial en su país.
+
+## Datos en vivo
+
+Dos APIs públicas de F1 (sin API key) alimentan datos que no viven en Neon,
+tomadas del mismo patrón que ya usa MadRing:
+
+- **Jolpica** (`api.jolpi.ca`, sucesor mantenido de la extinta Ergast API):
+  clasificación de pilotos del campeonato. Se consulta desde el servidor
+  (`lib/jolpica.ts`) con caché de 5 min, y se muestra en el Home vía
+  `DriverStandings`. Si la API falla o la temporada aún no tiene resultados,
+  la sección simplemente no se renderiza.
+- **OpenF1** (`api.openf1.org`): timing en directo (posiciones, intervalos)
+  durante una sesión. Se consulta desde el navegador (`components/LiveSession.tsx`,
+  `"use client"`, con polling cada 10s) porque es un dato genuinamente en
+  vivo, no algo que tenga sentido cachear en el servidor. El componente solo
+  se monta en la página del circuito cuya ventana de fin de semana (FP1 →
+  carrera + 1 día) incluye el momento actual, para no hacer polling los otros
+  51 fines de semana del año en los que ese GP no corre. Aun montado, valida
+  que la sesión que devuelve `session_key=latest` esté realmente en curso
+  (`date_start` ≤ ahora ≤ `date_end`) antes de mostrarla como "en directo".
+
+Ninguna de las dos APIs devuelve el trazado/mapa del circuito (solo timing y
+clasificaciones) — eso hay que seguir sourceándolo aparte.

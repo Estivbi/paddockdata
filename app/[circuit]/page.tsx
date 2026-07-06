@@ -6,6 +6,7 @@ import { WeekendAgenda } from "@/components/WeekendAgenda";
 import { InfoSection } from "@/components/InfoSection";
 import { AffiliateSection } from "@/components/AffiliateSection";
 import { WatchOptions } from "@/components/WatchOptions";
+import { LiveSession } from "@/components/LiveSession";
 import { DatabaseSetupNotice } from "@/components/DatabaseSetupNotice";
 import {
   getAffiliatesByCircuitId,
@@ -63,10 +64,22 @@ export default async function CircuitPage({ params }: PageProps) {
   const { circuit, events, affiliates, officialAffiliates, vpnAffiliates } =
     data;
 
+  // OpenF1 solo tiene datos útiles mientras el circuito está en pista. Se
+  // acota a [FP1, carrera + 1 día] para no montar el polling client-side los
+  // otros 51 fines de semana del año en los que este GP no corre.
+  const ONE_DAY_MS = 24 * 60 * 60 * 1000;
+  const weekendStart = circuit.fp1_date
+    ? new Date(circuit.fp1_date).getTime()
+    : new Date(circuit.race_date).getTime() - ONE_DAY_MS;
+  const weekendEnd = new Date(circuit.race_date).getTime() + ONE_DAY_MS;
+  const now = Date.now();
+  const isRaceWeekend = now >= weekendStart && now <= weekendEnd;
+
   return (
     <>
       <CircuitHero circuit={circuit} />
       <WeekendAgenda events={events} />
+      {isRaceWeekend && <LiveSession />}
       {circuit.how_to_arrive && (
         <InfoSection
           id="como-llegar"
