@@ -5,13 +5,11 @@ import { CircuitHero } from "@/components/CircuitHero";
 import { WeekendAgenda } from "@/components/WeekendAgenda";
 import { InfoSection } from "@/components/InfoSection";
 import { AffiliateSection } from "@/components/AffiliateSection";
-import { VpnBanner } from "@/components/VpnBanner";
 import { DatabaseSetupNotice } from "@/components/DatabaseSetupNotice";
 import {
   getAffiliatesByCircuitId,
   getCircuitBySlug,
   getEventsByCircuitId,
-  getGlobalAffiliates,
 } from "@/lib/queries";
 
 export const dynamic = "force-dynamic";
@@ -44,18 +42,17 @@ export default async function CircuitPage({ params }: PageProps) {
     const circuit = await getCircuitBySlug(slug);
     if (!circuit) notFound();
 
-    const [events, affiliates, vpnAffiliates] = await Promise.all([
+    const [events, affiliates] = await Promise.all([
       getEventsByCircuitId(circuit.id),
       getAffiliatesByCircuitId(circuit.id),
-      getGlobalAffiliates("vpn"),
     ]);
 
-    data = { circuit, events, affiliates, vpnAffiliates };
+    data = { circuit, events, affiliates };
   } catch (error) {
     return <DatabaseSetupNotice error={error} />;
   }
 
-  const { circuit, events, affiliates, vpnAffiliates } = data;
+  const { circuit, events, affiliates } = data;
 
   return (
     <>
@@ -81,7 +78,6 @@ export default async function CircuitPage({ params }: PageProps) {
         title={`Recomendado para ${circuit.city}`}
         affiliates={affiliates}
       />
-      <VpnBanner affiliates={vpnAffiliates} />
     </>
   );
 }

@@ -47,23 +47,6 @@ export async function getAffiliatesByCircuitId(
   return rows as Affiliate[];
 }
 
-export async function getGlobalAffiliates(
-  category?: string
-): Promise<Affiliate[]> {
-  const rows = category
-    ? await sql()`
-        SELECT * FROM affiliates
-        WHERE circuit_id IS NULL AND category = ${category}
-        ORDER BY sort_order ASC, id ASC
-      `
-    : await sql()`
-        SELECT * FROM affiliates
-        WHERE circuit_id IS NULL
-        ORDER BY sort_order ASC, id ASC
-      `;
-  return rows as Affiliate[];
-}
-
 export async function getAllCircuitSlugs(): Promise<string[]> {
   const rows = await sql()`SELECT slug FROM circuits`;
   return (rows as { slug: string }[]).map((r) => r.slug);

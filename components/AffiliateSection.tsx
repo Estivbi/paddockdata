@@ -8,6 +8,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import type { Affiliate } from "@/lib/types";
+import { withAmazonTag } from "@/lib/affiliate";
 
 const CATEGORY_ICON: Record<string, LucideIcon> = {
   ropa: ShoppingBag,
@@ -40,7 +41,7 @@ export function AffiliateSection({
           return (
             <a
               key={affiliate.id}
-              href={affiliate.amazon_url}
+              href={withAmazonTag(affiliate.amazon_url)}
               target="_blank"
               rel="sponsored noopener noreferrer"
               className="group flex flex-col rounded-xl border border-border bg-bg-card p-5 transition hover:border-red/60"

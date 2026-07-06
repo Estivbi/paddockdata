@@ -21,7 +21,8 @@ del fin de semana, cómo llegar, información local y afiliados contextuales.
 
 2. Crea un proyecto en [Neon](https://neon.tech) y copia la cadena de conexión.
 
-3. Copia `.env.example` a `.env.local` y rellena `DATABASE_URL`:
+3. Copia `.env.example` a `.env.local` y rellena `DATABASE_URL` y
+   `AMAZON_ASSOCIATES_TAG`:
 
    ```bash
    cp .env.example .env.local
@@ -59,13 +60,13 @@ components/
   WeekendAgenda.tsx       Agenda de sesiones del fin de semana
   InfoSection.tsx         Bloque reutilizable (cómo llegar / info local)
   AffiliateSection.tsx    Grid de afiliados contextuales por circuito
-  VpnBanner.tsx           Banner de afiliados VPN (global)
   DatabaseSetupNotice.tsx Aviso cuando falta configurar Neon
 lib/
   db.ts, queries.ts       Cliente Neon y acceso a datos
   types.ts                Tipos de circuits / events / affiliates
   format.ts               Formateo de fechas y countdown en español
   rich-text.tsx           Renderer ligero de texto enriquecido (sin HTML)
+  affiliate.ts            Añade el Amazon Associates ID (env var) a los enlaces
 db/
   schema.sql              DDL de circuits, events, affiliates
   seed.sql                 Datos de los 13 GPs restantes de 2026
@@ -86,6 +87,8 @@ nivel de evento) hasta que la FIA publique el horario detallado de cada GP.
 Madrid se deja intencionadamente con contenido mínimo: su cobertura completa
 vive hoy en MadRing y se migrará más adelante.
 
-**Importante**: los enlaces de afiliado de Amazon usan la etiqueta de ejemplo
-`paddockdata-21`. Sustitúyela por tu Amazon Associates ID real antes de
-publicar en producción.
+**Importante**: `db/seed.sql` guarda los enlaces de Amazon sin etiqueta de
+afiliado. El Amazon Associates ID real se añade en tiempo de renderizado
+desde la variable de entorno `AMAZON_ASSOCIATES_TAG` (ver `lib/affiliate.ts`),
+así nunca queda expuesto en el repositorio. Por ahora solo hay afiliados de
+Amazon; los de VPN se añadirán más adelante.

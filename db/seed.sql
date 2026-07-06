@@ -4,9 +4,10 @@
 -- en el formato estándar de fin de semana y están marcados is_confirmed = false
 -- hasta que la FIA publique el horario detallado de cada GP.
 --
--- IMPORTANT: las URLs de afiliados usan enlaces de búsqueda de Amazon con la
--- etiqueta de ejemplo "paddockdata-21". Sustituir por el Amazon Associates ID real
--- antes de publicar en producción.
+-- Las URLs de afiliados son enlaces de búsqueda de Amazon SIN etiqueta: el
+-- Amazon Associates ID real se añade en tiempo de renderizado desde la
+-- variable de entorno AMAZON_ASSOCIATES_TAG (lib/affiliate.ts), nunca se
+-- guarda en la base de datos ni en el repositorio.
 
 -- =========================================================
 -- 1. Spa-Francorchamps — Gran Premio de Bélgica (19 julio 2026) — URGENTE
@@ -50,13 +51,13 @@ SELECT id, '2026-07-19'::date, '15:00 CEST', 'Carrera — Gran Premio de Bélgic
 
 -- Afiliados contextuales de Spa (clima muy variable → impermeables, capas, protección de electrónica)
 INSERT INTO affiliates (circuit_id, title, description, amazon_url, image_url, category, sort_order)
-SELECT id, 'Poncho impermeable compacto para circuito', 'El clima de las Ardenas cambia en minutos: un poncho plegable de bolsillo es imprescindible en las gradas de Spa.', 'https://www.amazon.es/s?k=poncho+impermeable+compacto&tag=paddockdata-21', NULL, 'accesorios', 1 FROM circuits WHERE slug = 'spa-francorchamps'
+SELECT id, 'Poncho impermeable compacto para circuito', 'El clima de las Ardenas cambia en minutos: un poncho plegable de bolsillo es imprescindible en las gradas de Spa.', 'https://www.amazon.es/s?k=poncho+impermeable+compacto', NULL, 'accesorios', 1 FROM circuits WHERE slug = 'spa-francorchamps'
 UNION ALL
-SELECT id, 'Auriculares intraurales con protección auditiva', 'Los V6 turbo híbridos superan los 130 dB en recta; unos auriculares con filtro de atenuación protegen el oído durante todo el fin de semana.', 'https://www.amazon.es/s?k=auriculares+proteccion+auditiva+circuito&tag=paddockdata-21', NULL, 'audio', 2 FROM circuits WHERE slug = 'spa-francorchamps'
+SELECT id, 'Auriculares intraurales con protección auditiva', 'Los V6 turbo híbridos superan los 130 dB en recta; unos auriculares con filtro de atenuación protegen el oído durante todo el fin de semana.', 'https://www.amazon.es/s?k=auriculares+proteccion+auditiva+circuito', NULL, 'audio', 2 FROM circuits WHERE slug = 'spa-francorchamps'
 UNION ALL
-SELECT id, 'Prismáticos compactos para gradas de Kemmel', 'Eau Rouge-Raidillon se ve mejor con algo de aumento: unos prismáticos ligeros marcan la diferencia desde Kemmel o Blanchimont.', 'https://www.amazon.es/s?k=prismaticos+compactos+eventos+deportivos&tag=paddockdata-21', NULL, 'accesorios', 3 FROM circuits WHERE slug = 'spa-francorchamps'
+SELECT id, 'Prismáticos compactos para gradas de Kemmel', 'Eau Rouge-Raidillon se ve mejor con algo de aumento: unos prismáticos ligeros marcan la diferencia desde Kemmel o Blanchimont.', 'https://www.amazon.es/s?k=prismaticos+compactos+eventos+deportivos', NULL, 'accesorios', 3 FROM circuits WHERE slug = 'spa-francorchamps'
 UNION ALL
-SELECT id, 'Camiseta técnica transpirable', 'Para las horas de pie bajo sol o lluvia; secado rápido y protección UV.', 'https://www.amazon.es/s?k=camiseta+tecnica+transpirable+deporte&tag=paddockdata-21', NULL, 'ropa', 4 FROM circuits WHERE slug = 'spa-francorchamps';
+SELECT id, 'Camiseta técnica transpirable', 'Para las horas de pie bajo sol o lluvia; secado rápido y protección UV.', 'https://www.amazon.es/s?k=camiseta+tecnica+transpirable+deporte', NULL, 'ropa', 4 FROM circuits WHERE slug = 'spa-francorchamps';
 
 -- =========================================================
 -- 2. Hungaroring — Gran Premio de Hungría (26 julio 2026)
@@ -98,9 +99,9 @@ UNION ALL
 SELECT id, '2026-07-26'::date, '15:00 CEST', 'Carrera — Gran Premio de Hungría', 'F1', 'race', TRUE, 'Fecha confirmada por el calendario oficial 2026.' FROM circuits WHERE slug = 'budapest';
 
 INSERT INTO affiliates (circuit_id, title, description, amazon_url, image_url, category, sort_order)
-SELECT id, 'Gorra transpirable con protección UV', 'El Hungaroring pega de lleno el sol de julio en las gradas; una gorra técnica es casi obligatoria.', 'https://www.amazon.es/s?k=gorra+transpirable+proteccion+solar&tag=paddockdata-21', NULL, 'ropa', 1 FROM circuits WHERE slug = 'budapest'
+SELECT id, 'Gorra transpirable con protección UV', 'El Hungaroring pega de lleno el sol de julio en las gradas; una gorra técnica es casi obligatoria.', 'https://www.amazon.es/s?k=gorra+transpirable+proteccion+solar', NULL, 'ropa', 1 FROM circuits WHERE slug = 'budapest'
 UNION ALL
-SELECT id, 'Botella térmica reutilizable', 'Con 30°C y humedad alta, mantener el agua fría todo el día evita golpes de calor en las gradas.', 'https://www.amazon.es/s?k=botella+termica+reutilizable+deporte&tag=paddockdata-21', NULL, 'accesorios', 2 FROM circuits WHERE slug = 'budapest';
+SELECT id, 'Botella térmica reutilizable', 'Con 30°C y humedad alta, mantener el agua fría todo el día evita golpes de calor en las gradas.', 'https://www.amazon.es/s?k=botella+termica+reutilizable+deporte', NULL, 'accesorios', 2 FROM circuits WHERE slug = 'budapest';
 
 -- =========================================================
 -- 3. Zandvoort — Gran Premio de los Países Bajos (23 agosto 2026) — fin de semana sprint
@@ -142,9 +143,9 @@ UNION ALL
 SELECT id, '2026-08-23'::date, '15:00 CEST', 'Carrera — Gran Premio de los Países Bajos', 'F1', 'race', TRUE, 'Fecha confirmada por el calendario oficial 2026. Último Gran Premio de Holanda anunciado en el calendario.' FROM circuits WHERE slug = 'zandvoort';
 
 INSERT INTO affiliates (circuit_id, title, description, amazon_url, image_url, category, sort_order)
-SELECT id, 'Cortavientos ligero plegable', 'El viento del Mar del Norte se nota en cada peralte; un cortavientos compacto es el mejor amigo en Zandvoort.', 'https://www.amazon.es/s?k=cortavientos+ligero+plegable&tag=paddockdata-21', NULL, 'ropa', 1 FROM circuits WHERE slug = 'zandvoort'
+SELECT id, 'Cortavientos ligero plegable', 'El viento del Mar del Norte se nota en cada peralte; un cortavientos compacto es el mejor amigo en Zandvoort.', 'https://www.amazon.es/s?k=cortavientos+ligero+plegable', NULL, 'ropa', 1 FROM circuits WHERE slug = 'zandvoort'
 UNION ALL
-SELECT id, 'Mochila impermeable pequeña', 'Para llevar cámara, capa extra y snacks entre la estación y el circuito sin depender del coche.', 'https://www.amazon.es/s?k=mochila+impermeable+pequena+eventos&tag=paddockdata-21', NULL, 'accesorios', 2 FROM circuits WHERE slug = 'zandvoort';
+SELECT id, 'Mochila impermeable pequeña', 'Para llevar cámara, capa extra y snacks entre la estación y el circuito sin depender del coche.', 'https://www.amazon.es/s?k=mochila+impermeable+pequena+eventos', NULL, 'accesorios', 2 FROM circuits WHERE slug = 'zandvoort';
 
 -- =========================================================
 -- 4. Monza — Gran Premio de Italia (6 septiembre 2026)
@@ -186,9 +187,9 @@ UNION ALL
 SELECT id, '2026-09-06'::date, '15:00 CEST', 'Carrera — Gran Premio de Italia', 'F1', 'race', TRUE, 'Fecha confirmada por el calendario oficial 2026.' FROM circuits WHERE slug = 'monza';
 
 INSERT INTO affiliates (circuit_id, title, description, amazon_url, image_url, category, sort_order)
-SELECT id, 'Gafas de sol polarizadas', 'Las rectas de Monza generan mucho reflejo de sol; unas polarizadas ayudan a seguir los coches a 350 km/h.', 'https://www.amazon.es/s?k=gafas+de+sol+polarizadas+deporte&tag=paddockdata-21', NULL, 'accesorios', 1 FROM circuits WHERE slug = 'monza'
+SELECT id, 'Gafas de sol polarizadas', 'Las rectas de Monza generan mucho reflejo de sol; unas polarizadas ayudan a seguir los coches a 350 km/h.', 'https://www.amazon.es/s?k=gafas+de+sol+polarizadas+deporte', NULL, 'accesorios', 1 FROM circuits WHERE slug = 'monza'
 UNION ALL
-SELECT id, 'Radio para escuchar comunicaciones del circuito', 'En Monza el ambiente sonoro es tremendo; una radio con auriculares te permite seguir la retransmisión oficial en pista.', 'https://www.amazon.es/s?k=radio+auriculares+circuito+carreras&tag=paddockdata-21', NULL, 'audio', 2 FROM circuits WHERE slug = 'monza';
+SELECT id, 'Radio para escuchar comunicaciones del circuito', 'En Monza el ambiente sonoro es tremendo; una radio con auriculares te permite seguir la retransmisión oficial en pista.', 'https://www.amazon.es/s?k=radio+auriculares+circuito+carreras', NULL, 'audio', 2 FROM circuits WHERE slug = 'monza';
 
 -- =========================================================
 -- 5. Madrid — Gran Premio de España (13 septiembre 2026) — nuevo trazado, se migrará desde MadRing
@@ -536,10 +537,3 @@ UNION ALL
 SELECT id, '2026-12-05'::date, '18:00 - 19:00 +04', 'Clasificación', 'F1', 'qualifying', FALSE, 'Horario provisional, pendiente de confirmación oficial de la FIA.' FROM circuits WHERE slug = 'abu-dhabi'
 UNION ALL
 SELECT id, '2026-12-06'::date, '17:00 +04', 'Carrera — Gran Premio de Abu Dabi', 'F1', 'race', TRUE, 'Fecha confirmada por el calendario oficial 2026. Última cita de la temporada.' FROM circuits WHERE slug = 'abu-dhabi';
-
--- =========================================================
--- Afiliados globales (no ligados a un circuito): VPN para ver F1 fuera de cobertura
--- =========================================================
-INSERT INTO affiliates (circuit_id, title, description, amazon_url, image_url, category, sort_order) VALUES
-  (NULL, 'NordVPN', 'Accede a la señal de F1 TV y de tu retransmisora habitual aunque estés fuera de tu país de cobertura.', 'https://nordvpn.com/', NULL, 'vpn', 1),
-  (NULL, 'ExpressVPN', 'Alternativa rápida y estable para ver sesiones de Libres, Clasificación y Carrera sin restricciones geográficas.', 'https://www.expressvpn.com/', NULL, 'vpn', 2);
