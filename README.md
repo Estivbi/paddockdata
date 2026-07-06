@@ -60,6 +60,7 @@ components/
   WeekendAgenda.tsx       Agenda de sesiones del fin de semana
   InfoSection.tsx         Bloque reutilizable (cómo llegar / info local)
   AffiliateSection.tsx    Grid de afiliados contextuales por circuito
+  VpnBanner.tsx           Banner de afiliados VPN (global)
   DatabaseSetupNotice.tsx Aviso cuando falta configurar Neon
 lib/
   db.ts, queries.ts       Cliente Neon y acceso a datos
@@ -90,5 +91,6 @@ vive hoy en MadRing y se migrará más adelante.
 **Importante**: `db/seed.sql` guarda los enlaces de Amazon sin etiqueta de
 afiliado. El Amazon Associates ID real se añade en tiempo de renderizado
 desde la variable de entorno `AMAZON_ASSOCIATES_TAG` (ver `lib/affiliate.ts`),
-así nunca queda expuesto en el repositorio. Por ahora solo hay afiliados de
-Amazon; los de VPN se añadirán más adelante.
+así nunca queda expuesto en el repositorio. Los afiliados de VPN (NordVPN,
+ExpressVPN) son globales (`circuit_id = NULL`) y aparecen en todas las
+páginas de circuito vía `VpnBanner`.

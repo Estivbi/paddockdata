@@ -537,3 +537,10 @@ UNION ALL
 SELECT id, '2026-12-05'::date, '18:00 - 19:00 +04', 'Clasificación', 'F1', 'qualifying', FALSE, 'Horario provisional, pendiente de confirmación oficial de la FIA.' FROM circuits WHERE slug = 'abu-dhabi'
 UNION ALL
 SELECT id, '2026-12-06'::date, '17:00 +04', 'Carrera — Gran Premio de Abu Dabi', 'F1', 'race', TRUE, 'Fecha confirmada por el calendario oficial 2026. Última cita de la temporada.' FROM circuits WHERE slug = 'abu-dhabi';
+
+-- =========================================================
+-- Afiliados globales (no ligados a un circuito): VPN para ver F1 fuera de cobertura
+-- =========================================================
+INSERT INTO affiliates (circuit_id, title, description, amazon_url, image_url, category, sort_order) VALUES
+  (NULL, 'NordVPN', 'Accede a la señal de F1 TV y de tu retransmisora habitual aunque estés fuera de tu país de cobertura.', 'https://nordvpn.com/', NULL, 'vpn', 1),
+  (NULL, 'ExpressVPN', 'Alternativa rápida y estable para ver sesiones de Libres, Clasificación y Carrera sin restricciones geográficas.', 'https://www.expressvpn.com/', NULL, 'vpn', 2);
