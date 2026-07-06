@@ -77,32 +77,36 @@ INSERT INTO circuits (
   '1:16.627 — Lewis Hamilton (Mercedes, 2020)',
   '2026-07-26T15:00:00+02:00',
   '2026-07-25T16:00:00+02:00',
-  '2026-07-24T12:30:00+02:00',
-  '2026-07-24T16:00:00+02:00',
-  '2026-07-25T11:30:00+02:00',
+  '2026-07-24T13:30:00+02:00',
+  '2026-07-24T17:00:00+02:00',
+  '2026-07-25T12:30:00+02:00',
   FALSE,
   '{"lat": 47.5789, "lng": 19.2486}',
   'Europe/Budapest',
-  'Un trazado sinuoso y estrecho, apodado "el Mónaco sin muros", a 20 km del centro de Budapest.',
-  E'**En coche**: 20-25 min desde el centro de Budapest por la M3.\n\n**Shuttle oficial**: bus lanzadera desde varias estaciones de metro de Budapest los días de sesión.\n\n**En avión**: aeropuerto de Budapest-Ferenc Liszt (BUD), ~35 min al circuito.',
-  E'**Clima**: veranos calurosos y húmedos, 25-33°C habituales en julio — hidratación y protección solar son clave.\n\n**Alojamiento**: quedarse en Budapest (Pest) y usar el shuttle oficial suele ser más cómodo y barato que los hoteles cerca del circuito.'
+  'Un trazado sinuoso y estrecho, apodado "el Mónaco sin muros", a 20 km del centro de Budapest. Curvas encadenadas, poco adelantamiento y calor húmedo de sobremesa.',
+  E'**En coche**: 20-25 min desde el centro de Budapest por la M3; hay parkings oficiales de pago cerca de los accesos, pero se llenan pronto los días de sesión.\n\n**Shuttle oficial**: el Hungaroring no tiene estación de tren propia, así que el shuttle bus oficial (con salidas desde varios puntos de Budapest, entre ellos Népliget) es la forma habitual de llegar sin coche.\n\n**En avión**: aeropuerto de Budapest-Ferenc Liszt (BUD), ~35 min al circuito en coche o taxi.\n\n**A pie**: desde las paradas de shuttle hasta las gradas hay un tramo a pie de 15-20 min, casi todo al sol — lleva agua para el trayecto.',
+  E'**Clima**: veranos calurosos y húmedos, 25-33°C habituales en julio, con muy poca sombra en la mayoría de gradas — hidratación y protección solar son clave.\n\n**Alojamiento**: quedarse en Budapest (Pest) y usar el shuttle oficial suele ser más cómodo y barato que los hoteles cerca del circuito, que son escasos y se disparan de precio ese fin de semana.\n\n**Entradas**: las gradas de la curva 1 (la horquilla tras la recta de salida) suelen dar el mejor ángulo para ver los adelantamientos de la primera vuelta, que es donde se decide buena parte de la carrera en un trazado tan estrecho.'
 );
 
 INSERT INTO events (circuit_id, day, time_label, name, category, type, is_confirmed, details)
-SELECT id, '2026-07-24'::date, '12:30 - 13:30 CEST', 'Entrenamientos Libres 1', 'F1', 'fp1', FALSE, 'Horario provisional, pendiente de confirmación oficial de la FIA.' FROM circuits WHERE slug = 'budapest'
+SELECT id, '2026-07-24'::date, '13:30 - 14:30 CEST', 'Entrenamientos Libres 1', 'F1', 'fp1', TRUE, NULL FROM circuits WHERE slug = 'budapest'
 UNION ALL
-SELECT id, '2026-07-24'::date, '16:00 - 17:00 CEST', 'Entrenamientos Libres 2', 'F1', 'fp2', FALSE, 'Horario provisional, pendiente de confirmación oficial de la FIA.' FROM circuits WHERE slug = 'budapest'
+SELECT id, '2026-07-24'::date, '17:00 - 18:00 CEST', 'Entrenamientos Libres 2', 'F1', 'fp2', TRUE, NULL FROM circuits WHERE slug = 'budapest'
 UNION ALL
-SELECT id, '2026-07-25'::date, '11:30 - 12:30 CEST', 'Entrenamientos Libres 3', 'F1', 'fp3', FALSE, 'Horario provisional, pendiente de confirmación oficial de la FIA.' FROM circuits WHERE slug = 'budapest'
+SELECT id, '2026-07-25'::date, '12:30 - 13:30 CEST', 'Entrenamientos Libres 3', 'F1', 'fp3', TRUE, NULL FROM circuits WHERE slug = 'budapest'
 UNION ALL
-SELECT id, '2026-07-25'::date, '16:00 - 17:00 CEST', 'Clasificación', 'F1', 'qualifying', FALSE, 'Horario provisional, pendiente de confirmación oficial de la FIA.' FROM circuits WHERE slug = 'budapest'
+SELECT id, '2026-07-25'::date, '16:00 - 17:00 CEST', 'Clasificación', 'F1', 'qualifying', TRUE, NULL FROM circuits WHERE slug = 'budapest'
 UNION ALL
-SELECT id, '2026-07-26'::date, '15:00 CEST', 'Carrera — Gran Premio de Hungría', 'F1', 'race', TRUE, 'Fecha confirmada por el calendario oficial 2026.' FROM circuits WHERE slug = 'budapest';
+SELECT id, '2026-07-26'::date, '15:00 CEST', 'Carrera — Gran Premio de Hungría', 'F1', 'race', TRUE, '70 vueltas o 120 minutos (lo que ocurra antes).' FROM circuits WHERE slug = 'budapest';
 
 INSERT INTO affiliates (circuit_id, title, description, url, image_url, category, sort_order)
 SELECT id, 'Gorra transpirable con protección UV', 'El Hungaroring pega de lleno el sol de julio en las gradas; una gorra técnica es casi obligatoria.', 'https://www.amazon.es/s?k=gorra+transpirable+proteccion+solar', NULL, 'ropa', 1 FROM circuits WHERE slug = 'budapest'
 UNION ALL
-SELECT id, 'Botella térmica reutilizable', 'Con 30°C y humedad alta, mantener el agua fría todo el día evita golpes de calor en las gradas.', 'https://www.amazon.es/s?k=botella+termica+reutilizable+deporte', NULL, 'accesorios', 2 FROM circuits WHERE slug = 'budapest';
+SELECT id, 'Botella térmica reutilizable', 'Con 30°C y humedad alta, mantener el agua fría todo el día evita golpes de calor en las gradas.', 'https://www.amazon.es/s?k=botella+termica+reutilizable+deporte', NULL, 'accesorios', 2 FROM circuits WHERE slug = 'budapest'
+UNION ALL
+SELECT id, 'Protector solar deportivo resistente al sudor', 'La mayoría de gradas del Hungaroring no tienen sombra: un protector resistente al agua y al sudor aguanta toda la sesión sin reaplicar cada hora.', 'https://www.amazon.es/s?k=protector+solar+deportivo+resistente+sudor', NULL, 'accesorios', 3 FROM circuits WHERE slug = 'budapest'
+UNION ALL
+SELECT id, 'Mini ventilador de mano recargable', 'Con la humedad húngara de julio, un ventilador de bolsillo recargable se agradece en la cola del shuttle y en la propia grada.', 'https://www.amazon.es/s?k=mini+ventilador+mano+recargable', NULL, 'electronica', 4 FROM circuits WHERE slug = 'budapest';
 
 -- =========================================================
 -- 3. Zandvoort — Gran Premio de los Países Bajos (23 agosto 2026) — fin de semana sprint
