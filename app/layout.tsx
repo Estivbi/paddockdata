@@ -4,10 +4,12 @@ import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 
+// Se añade el peso 900 respecto al layout anterior: los titulares grandes de
+// circuito (estilo MadRing Guide) usan Barlow Condensed 900 en mayúsculas.
 const barlowCondensed = Barlow_Condensed({
   variable: "--font-barlow-condensed",
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  weight: ["500", "600", "700", "900"],
 });
 
 const inter = Inter({
