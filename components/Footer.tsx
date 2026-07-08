@@ -1,7 +1,7 @@
 export function Footer() {
   return (
     <footer className="border-t border-border bg-bg-elevated">
-      <div className="mx-auto max-w-6xl px-4 py-8 text-sm text-text-muted sm:px-6">
+      <div className="mx-auto max-w-6xl px-5 py-8 text-xs text-text-muted sm:px-6">
         <p>
           PaddockData no está afiliado a la Fórmula 1, la FIA ni a los
           promotores de los circuitos. Fechas y horarios sujetos a cambios por
@@ -15,7 +15,7 @@ export function Footer() {
           canales oficiales de retransmisión se muestran sin ningún tipo de
           comisión.
         </p>
-        <p className="mt-4 text-xs">
+        <p className="mt-4 text-[11px]">
           © {new Date().getFullYear()} PaddockData
         </p>
       </div>

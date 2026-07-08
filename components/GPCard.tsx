@@ -15,41 +15,41 @@ export function GPCard({
   return (
     <Link
       href={`/${circuit.slug}`}
-      className={`group relative flex flex-col justify-between overflow-hidden rounded-xl border p-5 transition hover:-translate-y-0.5 hover:border-red/60 ${
+      className={`group relative flex flex-col justify-between overflow-hidden rounded-[10px] border p-4 transition hover:-translate-y-0.5 hover:border-red/60 ${
         isNext
-          ? "border-red/70 bg-gradient-to-br from-red/15 via-bg-card to-bg-card"
-          : "border-border bg-bg-card"
+          ? "border-red/70 bg-gradient-to-br from-red/15 via-bg-elevated to-bg-elevated"
+          : "border-border bg-bg-elevated"
       }`}
     >
       {isNext && (
-        <span className="absolute right-4 top-4 rounded-full bg-red px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-white">
+        <span className="absolute right-3 top-3 rounded-full bg-red px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white">
           Próxima carrera
         </span>
       )}
       <div>
-        <p className="text-xs font-medium uppercase tracking-wide text-text-muted">
+        <p className="text-[11px] font-medium uppercase tracking-wide text-text-muted">
           {formatWeekday(circuit.race_date, circuit.timezone)} ·{" "}
           {formatRaceDate(circuit.race_date, circuit.timezone)}
         </p>
-        <h3 className="font-heading mt-1 text-2xl font-semibold leading-tight text-text">
+        <h3 className="font-heading mt-1 text-xl font-black uppercase leading-tight text-text">
           {circuit.name}
         </h3>
-        <p className="mt-1 flex items-center gap-1 text-sm text-text-muted">
-          <MapPin className="h-3.5 w-3.5" />
+        <p className="mt-1 flex items-center gap-1 text-xs text-text-muted">
+          <MapPin className="h-3 w-3" />
           {circuit.city}, {circuit.country}
         </p>
       </div>
 
-      <div className="mt-4 flex items-center justify-between">
+      <div className="mt-3 flex items-center justify-between">
         <span
-          className={`text-sm font-semibold ${
+          className={`tabular text-xs font-semibold ${
             isNext ? "text-red" : "text-text-muted"
           }`}
         >
           {countdown}
         </span>
         {circuit.is_sprint && (
-          <span className="flex items-center gap-1 rounded-full border border-border px-2 py-0.5 text-xs font-medium text-text-muted">
+          <span className="flex items-center gap-1 rounded-full border border-border px-2 py-0.5 text-[10px] font-medium text-text-muted">
             <Zap className="h-3 w-3" />
             Sprint
           </span>

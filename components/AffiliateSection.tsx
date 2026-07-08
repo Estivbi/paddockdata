@@ -29,14 +29,16 @@ export function AffiliateSection({
   if (affiliates.length === 0) return null;
 
   return (
-    <section id="recomendados" className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+    <section id="recomendados" className="mx-auto max-w-6xl px-5 py-10 sm:px-6">
       <div className="flex items-baseline justify-between">
-        <h2 className="font-heading text-3xl font-semibold">{title}</h2>
-        <span className="text-xs text-text-muted">Enlaces de afiliado</span>
+        <h2 className="font-heading text-xl font-black uppercase tracking-wide text-text">
+          {title}
+        </h2>
+        <span className="text-[11px] text-text-muted">Enlaces de afiliado</span>
       </div>
 
-      <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {affiliates.map((affiliate) => {
+      <div className="mt-5 grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
+        {affiliates.map((affiliate, i) => {
           const Icon = CATEGORY_ICON[affiliate.category] ?? Tag;
           return (
             <a
@@ -44,18 +46,23 @@ export function AffiliateSection({
               href={withAmazonTag(affiliate.url)}
               target="_blank"
               rel="sponsored noopener noreferrer"
-              className="group flex flex-col rounded-xl border border-border bg-bg-card p-5 transition hover:border-red/60"
+              className="group flex flex-col rounded-[10px] border border-border bg-bg-elevated p-4 transition hover:border-red/60"
             >
-              <Icon className="h-6 w-6 text-red" />
-              <h3 className="font-heading mt-3 text-lg font-semibold leading-snug">
+              <div className="flex items-start justify-between">
+                <span className="ghost-num text-3xl">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <Icon className="h-5 w-5 text-red" />
+              </div>
+              <h3 className="font-heading mt-2 text-base font-bold uppercase leading-snug text-text">
                 {affiliate.title}
               </h3>
               {affiliate.description && (
-                <p className="mt-2 flex-1 text-sm text-text-muted">
+                <p className="mt-1 flex-1 text-xs text-text-muted">
                   {affiliate.description}
                 </p>
               )}
-              <span className="mt-4 text-sm font-semibold text-red group-hover:underline">
+              <span className="mt-3 text-xs font-semibold text-red group-hover:underline">
                 Ver en Amazon →
               </span>
             </a>
