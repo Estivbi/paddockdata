@@ -101,13 +101,13 @@ export function LiveSession() {
   const intervalMap = Object.fromEntries(intervals.map((iv) => [iv.driver_number, iv]));
 
   return (
-    <section className="mx-auto max-w-6xl px-4 pb-12 sm:px-6">
-      <h2 className="font-heading flex items-center gap-2 text-3xl font-semibold">
-        <Radio className="h-6 w-6 text-red" />
+    <section className="mx-auto max-w-6xl px-5 pb-10 sm:px-6">
+      <h2 className="font-heading flex items-center gap-2 text-xl font-black uppercase tracking-wide text-text">
+        <Radio className="h-5 w-5 text-red" />
         Sesión en directo
       </h2>
 
-      <div className="mt-6 rounded-xl border border-border bg-bg-card p-6">
+      <div className="mt-5 rounded-[10px] border border-border bg-bg-elevated p-5">
         {loading ? (
           <p className="text-center text-sm text-text-muted">
             Conectando con F1 Live…
@@ -119,7 +119,7 @@ export function LiveSession() {
           </p>
         ) : (
           <>
-            <div className="mb-3 flex items-center gap-2 rounded-lg bg-red px-3 py-1.5">
+            <div className="mb-3 flex items-center gap-2 rounded-[8px] bg-red px-3 py-1.5">
               <span className="h-2 w-2 animate-pulse rounded-full bg-white" />
               <span className="text-xs font-bold uppercase tracking-wide text-white">
                 En directo — {session.session_name} · {session.meeting_name}
@@ -132,20 +132,20 @@ export function LiveSession() {
                 return (
                   <li
                     key={p.driver_number}
-                    className="flex items-center gap-3 rounded-lg border border-border bg-bg py-2 pl-3 pr-4"
+                    className="flex items-center gap-3 rounded-[8px] border border-border bg-bg py-2 pl-3 pr-4"
                     style={{
                       borderLeftWidth: 3,
                       borderLeftColor: d?.team_colour ? `#${d.team_colour}` : undefined,
                     }}
                   >
                     <span
-                      className={`w-6 text-right font-heading text-lg font-bold ${
+                      className={`tabular w-6 text-right font-heading text-lg font-black ${
                         i === 0 ? "text-red" : "text-text-muted"
                       }`}
                     >
                       {p.position}
                     </span>
-                    <span className="flex-1 text-sm font-semibold">
+                    <span className="flex-1 text-sm font-semibold text-text">
                       {d ? (
                         <>
                           <span className="mr-2 text-text-muted">
@@ -160,7 +160,7 @@ export function LiveSession() {
                         `#${p.driver_number}`
                       )}
                     </span>
-                    <span className="text-xs text-text-muted">
+                    <span className="tabular text-xs text-text-muted">
                       {i === 0
                         ? "LÍDER"
                         : iv?.gap_to_leader != null
@@ -171,7 +171,7 @@ export function LiveSession() {
                 );
               })}
             </ul>
-            <p className="mt-3 text-center text-xs text-text-muted">
+            <p className="mt-3 text-center text-[11px] text-text-muted">
               Actualiza cada 10s · Datos: OpenF1
             </p>
           </>

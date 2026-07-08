@@ -15,14 +15,14 @@ async function CircuitCalendar() {
 
     if (circuits.length === 0) {
       return (
-        <p className="mt-12 text-text-muted">
+        <p className="mt-8 text-sm text-text-muted">
           No quedan Grandes Premios por disputar en 2026.
         </p>
       );
     }
 
     return (
-      <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-8 grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
         {circuits.map((circuit, index) => (
           <GPCard key={circuit.id} circuit={circuit} isNext={index === 0} />
         ))}
@@ -36,15 +36,15 @@ async function CircuitCalendar() {
 export default function Home() {
   return (
     <>
-      <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <div className="mx-auto max-w-6xl px-5 py-10 sm:px-6">
         <div className="max-w-2xl">
-          <p className="text-sm font-semibold uppercase tracking-widest text-red">
+          <p className="text-[13px] font-semibold uppercase tracking-[0.16em] text-red">
             Temporada 2026
           </p>
-          <h1 className="font-heading mt-2 text-4xl font-semibold sm:text-5xl">
+          <h1 className="font-heading mt-2 text-[clamp(36px,9vw,64px)] font-black uppercase leading-[0.95] tracking-tight text-text">
             Cada Gran Premio, con todo lo que necesitas saber
           </h1>
-          <p className="mt-4 text-text-muted">
+          <p className="mt-3 text-sm text-text-muted">
             Agenda del fin de semana, cómo llegar al circuito y
             recomendaciones contextuales para cada cita del calendario que
             queda por delante.
